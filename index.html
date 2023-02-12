@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Position Size Calculator</title>
+	<style>
+		#calculator-box {
+			width: 400px;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid black;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="calculator-box">
+		<h2>Contract Size Calculator</h2>
+		<label for="instrument">Instrument:</label>
+		<select id="instrument">
+			<option value="ES">ES</option>
+			<option value="MES">MES</option>
+		</select>
+		<br><br>
+		<label for="max-risk">Maximum Risk ($):</label>
+		<input type="number" id="max-risk">
+		<br><br>
+		<label for="trade-risk">Trade Risk in Handles:</label>
+		<input type="number" id="trade-risk">
+		<br><br>
+		<button onclick="calculatePositionSize()">Calculate</button>
+		<br><br>
+		<h3>Position Size: <span id="position-size"></span></h3>
+		<h3 style="color:green">Safest Contract Size: <span id="safest-position-size"></span></h3>
+		<h3>Risk in Dollar: <span id="risk-in-dollar"></span></h3>
+		<p id="alert" style="color:red"></p>
+	</div>
+	<script>
+		function calculatePositionSize() {
+			const instrument = document.getElementById("instrument").value;
+			const maxRisk = document.getElementById("max-risk").value;
+			const tradeRisk = document.getElementById("trade-risk").value;
+
+			const tickValue = instrument === "ES" ? 12.5 : 1.25;
+			const handleValue = 4 * tickValue;
+
+			const positionSize = maxRisk / (tradeRisk * handleValue);
+			const safestPositionSize = Math.floor(positionSize);
+			const riskInDollar = (safestPositionSize * tradeRisk * handleValue);
+
+			document.getElementById("position-size").innerHTML = positionSize.toFixed(2);
+			document.getElementById("safest-position-size").innerHTML = safestPositionSize;
+			document.getElementById("risk-in-dollar").innerHTML = "$" + riskInDollar.toFixed(2);
+			
+			if (positionSize < 1) {
+				document.getElementById("alert").innerHTML = "You can take this trade with this risk";
+			} else {
+				document.getElementById("alert").innerHTML = "";
+			}
+		}
+	</script>
+</body>
+</html>
