@@ -7,14 +7,14 @@
 			width: 400px;
 			margin: auto;
 			padding: 20px;
-			border: 1px solid black;
+			border: 2px solid white;
 			text-align: center;
 		}
 	</style>
 </head>
-<body>
+<body style="background-color: #333; color: white;">
 	<div id="calculator-box">
-		<h2>Contract Size Calculator</h2>
+		<h2><u>Contract Size Calculator</u></h2>
 		<label for="instrument">Instrument:</label>
 		<select id="instrument">
 			<option value="ES">ES</option>
@@ -30,7 +30,7 @@
 		<button onclick="calculatePositionSize()">Calculate</button>
 		<br><br>
 		<h3>Position Size: <span id="position-size"></span></h3>
-		<h3 style="color:green">Safest Contract Size: <span id="safest-position-size"></span></h3>
+		<h3 style="color:#39FF14">Safest Contract Size: <span id="safest-position-size"></span></h3>
 		<h3>Risk in Dollar: <span id="risk-in-dollar"></span></h3>
 		<p id="alert" style="color:red"></p>
 	</div>
